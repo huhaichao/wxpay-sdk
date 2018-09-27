@@ -1,3 +1,4 @@
+/*
 package com.github.wxpay.sdk;
 
 import org.apache.http.HttpEntity;
@@ -19,16 +20,20 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadFactory;
 
+*/
 /**
  * 交易保障
- */
+ *//*
+
 public class WXPayReport {
 
     public static class ReportInfo {
 
-        /**
+        */
+/**
          * 布尔变量使用int。0为false， 1为true。
-         */
+         *//*
+
 
         // 基本信息
         private String version = "v1";
@@ -77,11 +82,13 @@ public class WXPayReport {
                     '}';
         }
 
-        /**
+        */
+/**
          * 转换成 csv 格式
          *
          * @return
-         */
+         *//*
+
         public String toLineString(String key) {
             String separator = ",";
             Object[] objects = new Object[] {
@@ -173,12 +180,14 @@ public class WXPayReport {
 
     }
 
-    /**
+    */
+/**
      * 单例，双重校验，请在 JDK 1.5及更高版本中使用
      *
      * @param config
      * @return
-     */
+     *//*
+
     public static WXPayReport getInstance(WXPayConfig config) {
         if (INSTANCE == null) {
             synchronized (WXPayReport.class) {
@@ -224,14 +233,16 @@ public class WXPayReport {
         }).start();
     }
 
-    /**
+    */
+/**
      * http 请求
      * @param data
      * @param connectTimeoutMs
      * @param readTimeoutMs
      * @return
      * @throws Exception
-     */
+     *//*
+
     private static String httpRequest(String data, int connectTimeoutMs, int readTimeoutMs) throws Exception{
         BasicHttpClientConnectionManager connManager;
         connManager = new BasicHttpClientConnectionManager(
@@ -263,3 +274,4 @@ public class WXPayReport {
     }
 
 }
+*/

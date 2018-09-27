@@ -67,18 +67,18 @@ public abstract class WXPayConfig {
      *
      * @return
      */
-    public boolean shouldAutoReport() {
+    /*public boolean shouldAutoReport() {
         return true;
-    }
+    }*/
 
     /**
      * 进行健康上报的线程的数量
      *
      * @return
      */
-    public int getReportWorkerNum() {
+    /*public int getReportWorkerNum() {
         return 6;
-    }
+    }*/
 
 
     /**
@@ -87,17 +87,17 @@ public abstract class WXPayConfig {
      *
      * @return
      */
-    public int getReportQueueMaxSize() {
+    /*public int getReportQueueMaxSize() {
         return 10000;
-    }
+    }*/
 
     /**
      * 批量上报，一次最多上报多个数据
      *
      * @return
      */
-    public int getReportBatchSize() {
+    /*public int getReportBatchSize() {
         return 10;
-    }
+    }*/
 
 }

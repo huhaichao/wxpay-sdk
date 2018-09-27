@@ -593,9 +593,9 @@ public class WXPay {
      * @return API返回数据
      * @throws Exception
      */
-    public Map<String, String> report(Map<String, String> reqData) throws Exception {
+    /*public Map<String, String> report(Map<String, String> reqData) throws Exception {
         return this.report(reqData, this.config.getHttpConnectTimeoutMs(), this.config.getHttpReadTimeoutMs());
-    }
+    }*/
 
 
     /**
@@ -607,7 +607,7 @@ public class WXPay {
      * @return API返回数据
      * @throws Exception
      */
-    public Map<String, String> report(Map<String, String> reqData, int connectTimeoutMs, int readTimeoutMs) throws Exception {
+   /* public Map<String, String> report(Map<String, String> reqData, int connectTimeoutMs, int readTimeoutMs) throws Exception {
         String url;
         if (this.useSandbox) {
             url = WXPayConstants.SANDBOX_REPORT_URL_SUFFIX;
@@ -617,7 +617,7 @@ public class WXPay {
         }
         String respXml = this.requestWithoutCert(url, this.fillRequestData(reqData), connectTimeoutMs, readTimeoutMs);
         return WXPayUtil.xmlToMap(respXml);
-    }
+    }*/
 
 
     /**
