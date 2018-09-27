@@ -13,7 +13,7 @@ public abstract interface IWXPayDomain {
      *           ConnectTimeoutException，表示建立网络连接异常
      *           UnknownHostException， 表示dns解析异常
      */
-    abstract void report(final String domain, long elapsedTimeMillis, final Exception ex);
+   // abstract void report(final String domain, long elapsedTimeMillis, final Exception ex);
 
     /**
      * 获取域名
