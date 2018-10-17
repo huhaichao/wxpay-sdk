@@ -1,9 +1,15 @@
 package com.github.wxpay.sdk;
 
 import com.github.wxpay.sdk.WXPayConstants.SignType;
+import org.apache.commons.codec.binary.Base64;
 
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.github.wxpay.sdk.WXPayUtil.MD5;
 
 public class WXPay {
 
@@ -73,6 +79,28 @@ public class WXPay {
             throw new Exception("http read timeout is too small");
         }
 
+    }
+
+
+    /**
+     * 解密步骤如下：
+     （1）对加密串A做base64解码，得到加密串B
+     （2）对商户key做md5，得到32位小写key* ( key设置路径：微信商户平台(pay.weixin.qq.com)-->账户设置-->API安全-->密钥设置 )
+     （3）用key*对加密串B做AES-256-ECB解密（PKCS7Padding）
+     * @param encodeStr
+     * @return
+     */
+    public Map<String,String>  decodeRetrunResponed(String encodeStr) throws Exception {
+        //base64解码
+        byte[] bytes =Base64.decodeBase64(encodeStr);
+        //得到32位小写key*
+        byte[] key = MD5(this.config.getKey()).toLowerCase().getBytes();
+        SecretKeySpec secretKeySpec = new SecretKeySpec(key, "AES");
+        //用key*对加密串B做AES-256-ECB解密
+        Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+        cipher.init(Cipher.DECRYPT_MODE, secretKeySpec);
+        String xmlString =new String(cipher.doFinal(bytes),"utf-8");
+        return  processResponseXml(xmlString);
     }
 
     /**
