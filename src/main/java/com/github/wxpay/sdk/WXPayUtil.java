@@ -1,11 +1,13 @@
 package com.github.wxpay.sdk;
 
 import com.github.wxpay.sdk.WXPayConstants.SignType;
+import org.apache.commons.codec.binary.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import javax.crypto.Cipher;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.parsers.DocumentBuilder;
@@ -217,7 +219,26 @@ public class WXPayUtil {
         }
     }
 
-
+    /**
+     * 解密步骤如下：
+     （1）对加密串A做base64解码，得到加密串B
+     （2）对商户key做md5，得到32位小写key* ( key设置路径：微信商户平台(pay.weixin.qq.com)-->账户设置-->API安全-->密钥设置 )
+     （3）用key*对加密串B做AES-256-ECB解密（PKCS7Padding）
+     * @param encodeStr
+     * @return
+     */
+    public Map<String,String>  decodeRetrunResponed(String encodeStr,String key) throws Exception {
+        //base64解码
+        byte[] bytes = org.apache.commons.codec.binary.Base64.decodeBase64(encodeStr);
+        //得到32位小写key*
+        byte[] keys = MD5(key).toLowerCase().getBytes();
+        SecretKeySpec secretKeySpec = new SecretKeySpec(keys, "AES");
+        //用key*对加密串B做AES-256-ECB解密
+        Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+        cipher.init(Cipher.DECRYPT_MODE, secretKeySpec);
+        String xmlString =new String(cipher.doFinal(bytes),"utf-8");
+        return  xmlToMap(xmlString);
+    }
     /**
      * 获取随机字符串 Nonce Str
      *

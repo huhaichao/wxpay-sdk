@@ -81,28 +81,6 @@ public class WXPay {
 
     }
 
-
-    /**
-     * 解密步骤如下：
-     （1）对加密串A做base64解码，得到加密串B
-     （2）对商户key做md5，得到32位小写key* ( key设置路径：微信商户平台(pay.weixin.qq.com)-->账户设置-->API安全-->密钥设置 )
-     （3）用key*对加密串B做AES-256-ECB解密（PKCS7Padding）
-     * @param encodeStr
-     * @return
-     */
-    public Map<String,String>  decodeRetrunResponed(String encodeStr) throws Exception {
-        //base64解码
-        byte[] bytes =Base64.decodeBase64(encodeStr);
-        //得到32位小写key*
-        byte[] key = MD5(this.config.getKey()).toLowerCase().getBytes();
-        SecretKeySpec secretKeySpec = new SecretKeySpec(key, "AES");
-        //用key*对加密串B做AES-256-ECB解密
-        Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
-        cipher.init(Cipher.DECRYPT_MODE, secretKeySpec);
-        String xmlString =new String(cipher.doFinal(bytes),"utf-8");
-        return  processResponseXml(xmlString);
-    }
-
     /**
      * 向 Map 中添加 appid、mch_id、nonce_str、sign_type、sign <br>
      * 该函数适用于商户适用于统一下单等接口，不适用于红包、代金券接口
