@@ -227,7 +227,7 @@ public class WXPayUtil {
      * @param encodeStr
      * @return
      */
-    public static Map<String,String>  decodeRetrunResponed(String encodeStr,String key) throws Exception {
+    public static Map<String,String>  decodeReturnRespond(String encodeStr,String key) throws Exception {
         //base64解码
         byte[] bytes = org.apache.commons.codec.binary.Base64.decodeBase64(encodeStr);
         //得到32位小写key*
